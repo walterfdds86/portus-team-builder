@@ -19,7 +19,7 @@ REGRAS DE CONDUTA:
 
 const REPORT_SYSTEM_PROMPT = `Você é o Portus Team Builder. Com base na conversa acima, gere o Portus Team Report para este negócio.
 
-RETORNE APENAS JSON VÁLIDO, sem texto adicional, sem markdown, sem \`\`\`json. Apenas o objeto JSON puro:
+IMPORTANTE: Sua resposta deve começar DIRETAMENTE com { e terminar com }. Nenhuma palavra antes ou depois. Nenhum markdown. Nenhum \`\`\`json. Apenas o objeto JSON puro:
 
 {
   "stage": "Estruturação ou Crescimento ou Escala",

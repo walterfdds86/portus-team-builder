@@ -163,15 +163,16 @@ function generateReport() {
     "</div>";
 
   callAPI(true).then(function(raw) {
-    var clean = raw.replace(/```json|```/g, "").trim();
-    var report = JSON.parse(clean);
+    var jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error("JSON não encontrado na resposta: " + raw.substring(0, 200));
+    var report = JSON.parse(jsonMatch[0]);
     renderReport(report);
   }).catch(function(err) {
     els.reportCard.innerHTML =
       '<p style="color: red; padding: 24px; text-align: center;">' +
-        'Erro ao gerar o relatório. <a href="#" onclick="location.reload()">Tente novamente</a>' +
+        'Erro ao gerar o relatório. <a href="#" onclick="generateReport()">Tente novamente</a>' +
       "</p>";
-    console.error(err);
+    console.error("Erro ao gerar relatório:", err);
   });
 }
 
