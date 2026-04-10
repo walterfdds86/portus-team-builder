@@ -131,7 +131,7 @@ function sendMessage() {
     appendMessage("assistant", aiResponse);
 
     var readySignal = aiResponse.includes("Clique no botão abaixo para ver seu Portus Team Report");
-    if (readySignal || state.userTurns >= MAX_TURNS) {
+    if (readySignal) {
       els.btnReport.classList.add("visible");
       els.chatInput.disabled = true;
       els.btnSend.disabled = true;
