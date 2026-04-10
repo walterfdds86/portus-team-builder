@@ -244,31 +244,25 @@ function renderReport(report) {
     '<div class="report-footer">' +
       '<div class="report-budget"><span>Investimento estimado</span>' + (report.totalBudget || "—") + "</div>" +
       '<div class="report-date">' + (report.date || "") + "</div>" +
+    "</div>" +
+    '<div class="cta-portus">' +
+      '<div class="cta-portus-inner">' +
+        '<div class="cta-portus-text">' +
+          '<strong>A Portus pode montar esse time por você.</strong>' +
+          '<span>Recrutamento especializado em times de alta performance para o mercado digital.</span>' +
+        "</div>" +
+        '<a href="portus.html" target="_blank" class="btn-cta-portus">Conhecer a Portus →</a>' +
+      "</div>" +
     "</div>";
 
   els.reportActions.style.display = "flex";
 }
 
 // =====================
-// SALVAR COMO IMAGEM
+// BAIXAR PDF
 // =====================
-function saveAsImage() {
-  var btn = els.btnSave;
-  btn.textContent = "Gerando imagem...";
-  btn.disabled = true;
-
-  html2canvas(els.reportCard, { scale: 2, useCORS: true, backgroundColor: "#ffffff" }).then(function(canvas) {
-    var link = document.createElement("a");
-    link.download = "portus-team-report-" + state.businessName.replace(/\s+/g, "-").toLowerCase() + ".png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-  }).catch(function(err) {
-    console.error(err);
-    alert("Erro ao gerar imagem. Faça um print da tela.");
-  }).finally(function() {
-    btn.textContent = "Salvar como imagem";
-    btn.disabled = false;
-  });
+function saveAsPDF() {
+  window.print();
 }
 
 // =====================
@@ -353,5 +347,5 @@ els.chatInput.addEventListener("input", function() {
   els.chatInput.style.height = Math.min(els.chatInput.scrollHeight, 120) + "px";
 });
 els.btnReport.addEventListener("click", generateReport);
-els.btnSave.addEventListener("click", saveAsImage);
+els.btnSave.addEventListener("click", saveAsPDF);
 els.btnRestart.addEventListener("click", restart);
