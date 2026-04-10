@@ -91,7 +91,9 @@ module.exports = async function handler(req, res) {
         model: "claude-haiku-4-5-20251001",
         max_tokens: generateReport ? 1500 : 512,
         system: systemPrompt,
-        messages: messages,
+        messages: generateReport
+          ? [...messages, { role: "user", content: "Gere o relatório JSON agora." }]
+          : messages,
       }),
     });
 
