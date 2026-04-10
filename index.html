@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portüs Team Builder</title>
+  <meta name="description" content="Monte o time ideal para o seu infoproduto com IA. Portüs Digital.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-logo">port<span>ü</span>s</div>
+    <div class="header-badge">Team Builder</div>
+  </header>
+
+  <!-- SCREEN 1: INÍCIO -->
+  <section id="screen-start" class="screen active">
+    <div class="start-container">
+      <div class="start-hero">
+        <h1>Monte o <span>time ideal</span><br>para o seu infoproduto</h1>
+        <p>Nossa IA analisa seu negócio e recomenda quem contratar, em qual ordem e quanto investir — em minutos.</p>
+      </div>
+      <form class="start-form" id="start-form">
+        <div class="form-group">
+          <label for="user-name">Seu nome</label>
+          <input type="text" id="user-name" placeholder="Ex: João Silva" required autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="business-name">Nome do seu negócio ou expert</label>
+          <input type="text" id="business-name" placeholder="Ex: Expert Finanças" required autocomplete="off">
+        </div>
+        <button type="submit" class="btn-primary" id="btn-start">Iniciar Diagnóstico →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- SCREEN 2: CHAT -->
+  <section id="screen-chat" class="screen">
+    <div class="chat-wrapper">
+      <div class="chat-progress">
+        <span class="chat-progress-text" id="progress-text">Pergunta 1 de 7</span>
+        <div class="chat-progress-bar">
+          <div class="chat-progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="chat-messages" id="chat-messages"></div>
+      <div class="chat-input-area">
+        <button class="btn-report" id="btn-report">✦ Gerar Portus Team Report</button>
+        <div class="chat-input-row">
+          <textarea
+            class="chat-input"
+            id="chat-input"
+            placeholder="Digite sua resposta..."
+            rows="1"
+          ></textarea>
+          <button class="btn-send" id="btn-send" title="Enviar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2.5">
+              <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 3: RELATÓRIO -->
+  <section id="screen-report" class="screen">
+    <div class="report-wrapper">
+      <div class="report-card" id="report-card">
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p style="color: var(--color-text-muted); font-size: 14px;">Analisando seu negócio...</p>
+        </div>
+      </div>
+      <div class="report-actions" id="report-actions" style="display:none;">
+        <button class="btn-save" id="btn-save">Salvar como imagem</button>
+        <button class="btn-restart" id="btn-restart">Novo diagnóstico</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
