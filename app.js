@@ -262,7 +262,38 @@ function renderReport(report) {
 // BAIXAR PDF
 // =====================
 function saveAsPDF() {
-  window.print();
+  var btn = els.btnSave;
+  btn.textContent = "Gerando PDF...";
+  btn.disabled = true;
+
+  // Oculta temporariamente o CTA para não entrar no PDF
+  var ctaEl = els.reportCard.querySelector(".cta-portus");
+  if (ctaEl) ctaEl.style.display = "none";
+
+  html2canvas(els.reportCard, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: "#ffffff",
+    logging: false,
+  }).then(function(canvas) {
+    var imgData = canvas.toDataURL("image/jpeg", 0.92);
+    var mmPerPx = 0.264583;
+    var imgWidthMM = 210; // A4 width
+    var imgHeightMM = (canvas.height / canvas.width) * imgWidthMM;
+    var { jsPDF } = window.jspdf;
+
+    // PDF com altura exata do conteúdo (single page bem dimensionado)
+    var pdf = new jsPDF({ unit: "mm", format: [imgWidthMM, imgHeightMM] });
+    pdf.addImage(imgData, "JPEG", 0, 0, imgWidthMM, imgHeightMM);
+    pdf.save("portus-team-report-" + state.businessName.replace(/\s+/g, "-").toLowerCase() + ".pdf");
+  }).catch(function(err) {
+    console.error("Erro ao gerar PDF:", err);
+    alert("Erro ao gerar PDF. Tente novamente.");
+  }).finally(function() {
+    if (ctaEl) ctaEl.style.display = "";
+    btn.textContent = "Baixar PDF";
+    btn.disabled = false;
+  });
 }
 
 // =====================
