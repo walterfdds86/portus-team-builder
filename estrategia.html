@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estratégia de Marketing — Portüs Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --g:      #00dca4;
+      --g-d:    #08c393;
+      --g-dk:   #00664c;
+      --g-xdk:  #003d2d;
+      --amber:  #f59e0b;
+      --red:    #ef4444;
+      --blue:   #3b82f6;
+      --purple: #8b5cf6;
+      --bg:     #080e0b;
+      --bg2:    #0d1610;
+      --bg3:    #111a14;
+      --bg4:    #161f18;
+      --surf:   rgba(255,255,255,.04);
+      --bdr:    rgba(255,255,255,.08);
+      --bdr2:   rgba(0,220,164,.2);
+      --txt:    #f0f4f2;
+      --muted:  rgba(240,244,242,.5);
+      --font:   'Montserrat', sans-serif;
+      --r:      14px;
+      --r2:     20px;
+    }
+    body { font-family: var(--font); background: var(--bg); color: var(--txt); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.up { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: .1s; }
+    .reveal-d2 { transition-delay: .2s; }
+    .reveal-d3 { transition-delay: .3s; }
+    .reveal-d4 { transition-delay: .4s; }
+
+    /* ─── NOISE ─── */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 60px; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(8,14,11,.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+    }
+    .nav-logo { font-size: 18px; font-weight: 900; letter-spacing: -.5px; }
+    .nav-logo em { color: var(--g); font-style: normal; }
+    .nav-meta { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .nav-tag {
+      padding: 6px 14px; background: rgba(0,220,164,.1); border: 1px solid var(--bdr2);
+      border-radius: 999px; font-size: 11px; font-weight: 700; color: var(--g);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 100px 24px 80px; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -300px; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 900px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,220,164,.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-doc-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 20px; border: 1px solid var(--bdr);
+      border-radius: 999px; font-size: 11px; font-weight: 700;
+      color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 32px; position: relative; z-index: 1;
+      animation: fup .6s ease both;
+    }
+    .hero-doc-label span { width: 6px; height: 6px; border-radius: 50%; background: var(--g); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 72px); font-weight: 900;
+      letter-spacing: -2px; line-height: 1.05; margin-bottom: 20px;
+      position: relative; z-index: 1;
+      animation: fup .6s .1s ease both;
+    }
+    .hero h1 em {
+      background: linear-gradient(135deg, var(--g), #61e9c7, var(--g-d));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-style: normal;
+    }
+    .hero-sub {
+      font-size: clamp(15px, 1.8vw, 18px); color: var(--muted); max-width: 640px;
+      line-height: 1.7; margin-bottom: 48px; position: relative; z-index: 1;
+      animation: fup .6s .2s ease both;
+    }
+    .hero-meta {
+      display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+      justify-content: center; position: relative; z-index: 1;
+      animation: fup .6s .3s ease both;
+    }
+    .hero-meta-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .hero-meta-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+    .hero-meta-val { font-size: 14px; font-weight: 800; color: var(--txt); }
+    .hero-div { width: 1px; height: 32px; background: var(--bdr); }
+    .hero-scroll {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase;
+      animation: fup .6s .5s ease both;
+    }
+    .hero-scroll-line { width: 1px; height: 32px; background: linear-gradient(to bottom, var(--g), transparent); animation: scrollLine 2s ease-in-out infinite; }
+    @keyframes scrollLine { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+    @keyframes fup { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+    /* ─── SECTION ─── */
+    .section { padding: 96px 24px; position: relative; }
+    .section-inner { max-width: 980px; margin: 0 auto; }
+    .section-inner.narrow { max-width: 760px; }
+    .s-tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--g); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .s-tag::before { content: ''; width: 20px; height: 2px; background: var(--g); border-radius: 1px; }
+    .s-title { font-size: clamp(26px, 3.5vw, 42px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px; }
+    .s-sub { font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 600px; }
+    .section-divider { border: none; border-top: 1px solid var(--bdr); margin: 0; }
+
+    /* ─── DIAGNÓSTICO ─── */
+    .diag { background: var(--bg2); }
+    .diag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
+    .diag-card {
+      background: var(--bg3); border: 1px solid var(--bdr);
+      border-radius: var(--r2); padding: 32px;
+    }
+    .diag-card h3 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+    .diag-card h3.ok { color: var(--g); }
+    .diag-card h3.gap { color: var(--amber); }
+    .diag-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .diag-list li { font-size: 14px; color: var(--muted); line-height: 1.6; padding-left: 20px; position: relative; }
+    .diag-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; }
+    .diag-list.ok li::before { background: var(--g); }
+    .diag-list.gap li::before { background: var(--amber); }
+
+    .tese-box {
+      margin-top: 32px;
+      background: rgba(0,220,164,.06); border: 1px solid var(--bdr2);
+      border-radius: var(--r2); padding: 32px;
+      position: relative; overflow: hidden;
+    }
+    .tese-box::before {
+      content: '"'; position: absolute; top: -20px; right: 24px;
+      font-size: 120px; font-weight: 900; color: rgba(0,220,164,.08); line-height: 1;
+    }
+    .tese-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--g); margin-bottom: 12px; }
+    .tese-box p { font-size: 17px; font-weight: 700; color: var(--txt); line-height: 1.6; position: relative; z-index: 1; }
+
+    /* ─── POSICIONAMENTO ─── */
+    .pos { background: var(--bg); }
+    .pos-arrow {
+      display: grid; grid-template-columns: 1fr 48px 1fr; gap: 0;
+      align-items: center; margin-top: 48px; margin-bottom: 32px;
+    }
+    .pos-box {
+      background: var(--bg3); border: 1px solid var(--bdr);
+      border-radius: var(--r2); padding: 28px 32px;
+    }
+    .pos-box.before .pos-box-tag { color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .pos-box.after { border-color: var(--bdr2); background: rgba(0,220,164,.05); }
+    .pos-box.after .pos-box-tag { color: var(--g); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .pos-box p { font-size: 16px; font-weight: 800; line-height: 1.4; }
+    .pos-box.before p { color: var(--muted); }
+    .pos-box.after p { color: var(--txt); }
+    .pos-arrow-icon { display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--g); }
+    .pos-tagline {
+      background: var(--bg3); border: 1px solid var(--bdr);
+      border-radius: var(--r2); padding: 28px 32px; text-align: center;
+    }
+    .pos-tagline-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 12px; }
+    .pos-tagline p { font-size: 18px; font-weight: 800; color: var(--g); font-style: italic; }
+
+    /* ─── MARCA ─── */
+    .marca { background: var(--bg2); }
+    .marca-intro {
+      background: rgba(245,158,11,.05); border: 1px solid rgba(245,158,11,.2);
+      border-radius: var(--r2); padding: 24px 28px; margin-top: 32px; margin-bottom: 48px;
+    }
+    .marca-intro p { font-size: 14px; color: rgba(240,244,242,.7); line-height: 1.65; }
+    .marca-intro strong { color: var(--amber); }
+    .assets { display: flex; flex-direction: column; gap: 20px; }
+    .asset-card {
+      background: var(--bg3); border: 1px solid var(--bdr);
+      border-radius: var(--r2); padding: 36px; display: grid;
+      grid-template-columns: 56px 1fr; gap: 24px; align-items: start;
+      transition: border-color .2s, transform .2s;
+    }
+    .asset-card:hover { border-color: var(--bdr2); transform: translateX(4px); }
+    .asset-num {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: var(--g); color: #080e0b;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 900; flex-shrink: 0;
+    }
+    .asset-content h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; letter-spacing: -.3px; }
+    .asset-subtitle { font-size: 12px; font-weight: 700; color: var(--g); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .asset-content p { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+    .asset-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .asset-tag {
+      padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
+      background: rgba(0,220,164,.1); border: 1px solid var(--bdr2); color: var(--g);
+    }
+
+    /* ─── CANAIS ─── */
+    .canais { background: var(--bg); }
+    .canais-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 48px; }
+    .canal-card {
+      background: var(--bg3); border: 1px solid var(--bdr);
+      border-radius: var(--r2); padding: 28px;
+      display: flex; flex-direction: column; gap: 14px;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+      position: relative; overflow: hidden;
+    }
+    .canal-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      transform: scaleX(0); transform-origin: left; transition: transform .3s;
+    }
+    .canal-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.3); }
+    .canal-card:hover::after { transform: scaleX(1); }
+    .canal-card.c1::after { background: var(--blue); }
+    .canal-card.c2::after { background: var(--g); }
+    .canal-card.c3::after { background: var(--purple); }
+    .canal-card.c4::after { background: var(--amber); }
+    .canal-card.c5::after { background: var(--red); }
+    .canal-card.c6::after { background: #06b6d4; }
+    .canal-ico {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+    .canal-card.c1 .canal-ico { background: rgba(59,130,246,.1); }
+    .canal-card.c2 .canal-ico { background: rgba(0,220,164,.1); }
+    .canal-card.c3 .canal-ico { background: rgba(139,92,246,.1); }
+    .canal-card.c4 .canal-ico { background: rgba(245,158,11,.1); }
+    .canal-card.c5 .canal-ico { background: rgba(239,68,68,.1); }
+    .canal-card.c6 .canal-ico { background: rgba(6,182,212,.1); }
+    .canal-card h3 { font-size: 15px; font-weight: 800; }
+    .canal-focus { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); }
+    .canal-card p { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; }
+    .canal-kpi {
+      padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;
+      border: 1px solid var(--bdr); background: var(--bg2); color: var(--txt);
+    }
+    .canal-kpi span { color: var(--g); }
+
+    /* ─── VERTICAIS ─── */
+    .verticais { background: var(--bg2); }
+    .vert-list { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; border-radius: var(--r2); overflow: hidden; border: 1px solid var(--bdr); }
+    .vert-item {
+      background: var(--bg3); padding: 28px 32px;
+      display: grid; grid-template-columns: 48px 1fr auto;
+      gap: 20px; align-items: start;
+      border-bottom: 1px solid var(--bdr); cursor: pointer;
+      transition: background .2s;
+    }
+    .vert-item:last-child { border-bottom: none; }
+    .vert-item:hover { background: rgba(0,220,164,.04); }
+    .vert-n {
+      width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+      background: rgba(0,220,164,.1); border: 1px solid var(--bdr2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 900; color: var(--g);
+    }
+    .vert-content h3 { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+    .vert-content p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .vert-badge {
+      padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700;
+      white-space: nowrap; align-self: flex-start;
+    }
+    .badge-base { background: rgba(0,220,164,.1); color: var(--g); border: 1px solid var(--bdr2); }
+    .badge-expand { background: rgba(59,130,246,.1); color: #60a5fa; border: 1px solid rgba(59,130,246,.2); }
+    .badge-new { background: rgba(245,158,11,.1); color: var(--amber); border: 1px solid rgba(245,158,11,.2); }
+
+    /* ─── CONTEÚDO ─── */
+    .conteudo { background: var(--bg); }
+    .content-pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 48px; }
+    .pillar-card {
+      background: var(--bg3); border: 1px solid var(--bdr); border-radius: var(--r2);
+      padding: 28px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .pillar-ico { font-size: 24px; }
+    .pillar-card h3 { font-size: 15px; font-weight: 800; }
+    .pillar-card .pillar-what { font-size: 12px; font-weight: 700; color: var(--g); text-transform: uppercase; letter-spacing: .8px; }
+    .pillar-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .pillar-formats { display: flex; flex-wrap: wrap; gap: 6px; }
+    .fmt-tag {
+      padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700;
+      background: var(--surf); border: 1px solid var(--bdr); color: var(--muted);
+    }
+    .conteudo-rule {
+      margin-top: 32px; background: rgba(239,68,68,.05); border: 1px solid rgba(239,68,68,.2);
+      border-radius: var(--r2); padding: 24px 28px;
+    }
+    .rule-label { font-size: 11px; font-weight: 800; color: #f87171; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .conteudo-rule p { font-size: 14px; color: rgba(240,244,242,.75); line-height: 1.65; }
+
+    /* ─── IA ─── */
+    .ia-section { background: var(--bg2); }
+    .ia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 48px; }
+    .ia-card {
+      background: var(--bg3); border: 1px solid var(--bdr); border-radius: var(--r2);
+      padding: 28px;
+    }
+    .ia-card.highlight { border-color: var(--bdr2); background: rgba(0,220,164,.04); }
+    .ia-card-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+    .ia-card.highlight .ia-card-label { color: var(--g); }
+    .ia-card:not(.highlight) .ia-card-label { color: var(--muted); }
+    .ia-items { display: flex; flex-direction: column; gap: 10px; }
+    .ia-item { display: flex; align-items: flex-start; gap: 10px; }
+    .ia-item-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+    .ia-card.highlight .ia-item-dot { background: var(--g); }
+    .ia-card:not(.highlight) .ia-item-dot { background: var(--muted); }
+    .ia-item p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+    /* ─── ROADMAP ─── */
+    .roadmap-section { background: var(--bg); }
+    .phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+    .phase {
+      background: var(--bg3); border: 1px solid var(--bdr); border-radius: var(--r2);
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .phase-header { padding: 24px 28px 20px; }
+    .phase-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .phase-1 .phase-tag { color: var(--g); }
+    .phase-2 .phase-tag { color: var(--blue); }
+    .phase-3 .phase-tag { color: var(--purple); }
+    .phase h3 { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+    .phase-period { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .phase-divider { height: 1px; background: var(--bdr); }
+    .phase-body { padding: 24px 28px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .phase-item { display: flex; align-items: flex-start; gap: 10px; }
+    .phase-item-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+    .phase-1 .phase-item-dot { background: var(--g); }
+    .phase-2 .phase-item-dot { background: var(--blue); }
+    .phase-3 .phase-item-dot { background: var(--purple); }
+    .phase-item p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .phase-footer { padding: 20px 28px 24px; border-top: 1px solid var(--bdr); }
+    .kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+    .kpi-value { font-size: 14px; font-weight: 800; line-height: 1.5; }
+    .phase-1 .kpi-value { color: var(--g); }
+    .phase-2 .kpi-value { color: var(--blue); }
+    .phase-3 .kpi-value { color: var(--purple); }
+
+    /* ─── POR QUE ─── */
+    .porq { background: var(--bg2); }
+    .porq-intro { margin-top: 32px; margin-bottom: 48px; }
+    .porq-intro p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+    .porq-intro p + p { margin-top: 14px; }
+    .diff-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 48px; }
+    .diff-item {
+      background: var(--bg3); border: 1px solid var(--bdr); border-radius: var(--r);
+      padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+      transition: border-color .2s;
+    }
+    .diff-item:hover { border-color: var(--bdr2); }
+    .diff-check {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      background: var(--g); color: #080e0b;
+      display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900;
+    }
+    .diff-item p { font-size: 15px; font-weight: 700; }
+    .diff-item span { font-weight: 400; color: var(--muted); font-size: 13px; }
+
+    /* ─── CLOSING ─── */
+    .closing {
+      background: linear-gradient(160deg, var(--g-xdk) 0%, #003830 100%);
+      padding: 100px 24px; text-align: center; position: relative; overflow: hidden;
+    }
+    .closing::before {
+      content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,220,164,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .closing-inner { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+    .closing h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 20px; }
+    .closing h2 em { color: var(--g); font-style: normal; }
+    .closing p { font-size: 16px; color: rgba(240,244,242,.7); line-height: 1.7; margin-bottom: 40px; }
+    .closing-author {
+      display: inline-flex; align-items: center; gap: 16px;
+      background: rgba(255,255,255,.05); border: 1px solid var(--bdr);
+      border-radius: 999px; padding: 12px 24px 12px 12px;
+    }
+    .closing-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--g-dk), var(--g));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 900; color: var(--bg);
+    }
+    .closing-name { font-size: 14px; font-weight: 800; }
+    .closing-role { font-size: 12px; color: var(--muted); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg); border-top: 1px solid var(--bdr);
+      padding: 20px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo { font-size: 16px; font-weight: 900; }
+    .footer-logo em { color: var(--g); font-style: normal; }
+    footer p { font-size: 12px; color: rgba(240,244,242,.2); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .diag-grid { grid-template-columns: 1fr; }
+      .canais-grid { grid-template-columns: 1fr 1fr; }
+      .phases { grid-template-columns: 1fr; }
+      .ia-grid { grid-template-columns: 1fr; }
+      .content-pillars { grid-template-columns: 1fr; }
+      .pos-arrow { grid-template-columns: 1fr; }
+      .pos-arrow-icon { transform: rotate(90deg); padding: 8px 0; }
+    }
+    @media (max-width: 580px) {
+      nav { padding: 0 20px; }
+      .nav-meta { display: none; }
+      .canais-grid { grid-template-columns: 1fr; }
+      .vert-item { grid-template-columns: 48px 1fr; }
+      .vert-badge { display: none; }
+      .asset-card { grid-template-columns: 1fr; }
+      .asset-num { width: 48px; height: 48px; font-size: 18px; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">port<em>ü</em>s digital</div>
+  <div class="nav-meta">Documento Estratégico Confidencial</div>
+  <div class="nav-tag">Abril 2026</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-doc-label"><span></span> Estratégia de Marketing — Documento Executivo</div>
+  <h1>Da referência em infoprodutos<br>para a <em>autoridade do<br>mercado digital</em></h1>
+  <p class="hero-sub">Uma estratégia completa de marketing para a Portüs Digital — construída para crescer como marca, dominar múltiplos canais e expandir além do infoproduto.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Elaborado por</span>
+      <span class="hero-meta-val">Walter Ferreira</span>
+    </div>
+    <div class="hero-div"></div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Data</span>
+      <span class="hero-meta-val">12 de Abril, 2026</span>
+    </div>
+    <div class="hero-div"></div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Verticais mapeadas</span>
+      <span class="hero-meta-val">5 segmentos</span>
+    </div>
+    <div class="hero-div"></div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Canais estratégicos</span>
+      <span class="hero-meta-val">6 canais</span>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Role para explorar</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- DIAGNÓSTICO -->
+<section class="section diag">
+  <div class="section-inner">
+    <div class="s-tag reveal">01 — Diagnóstico Estratégico</div>
+    <h2 class="s-title reveal">O que a Portüs tem hoje.<br>O que ainda falta capturar.</h2>
+    <p class="s-sub reveal">Antes de propor qualquer ação, é preciso enxergar com clareza o que está funcionando — e onde está o teto de crescimento.</p>
+
+    <div class="diag-grid">
+      <div class="diag-card reveal">
+        <h3 class="ok">O que está funcionando</h3>
+        <ul class="diag-list ok">
+          <li>Autoridade reconhecida no ecossistema de infoprodutos como a empresa que valida senioridade de verdade</li>
+          <li>Processo próprio de triagem técnica — ativo difícil de copiar</li>
+          <li>Banco ativo de talentos em múltiplas especialidades</li>
+          <li>Ferramentas de IA próprias já operando (Talent Screener, Team Builder)</li>
+          <li>Posicionamento claro: "Nº 1 em estruturação de times de alta performance"</li>
+        </ul>
+      </div>
+      <div class="diag-card reveal reveal-d1">
+        <h3 class="gap">Onde está o teto de crescimento</h3>
+        <ul class="diag-list gap">
+          <li>Percepção de mercado ancora a marca exclusivamente ao nicho de lançamentos e perpétuos</li>
+          <li>TAM (mercado endereçável total) artificialmente limitado a infoprodutores</li>
+          <li>Geração de lead B2B ainda depende majoritariamente de rede e indicação</li>
+          <li>Ausência de ativos de dados próprios que gerem autoridade independente de pessoa</li>
+          <li>Nenhum canal de aquisição recorrente e escalável ativo hoje</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tese-box reveal">
+      <div class="tese-label">Tese Central</div>
+      <p>A Portüs pode se tornar a única empresa de recrutamento no mercado digital que prova, na própria estratégia de marketing, que é possível gerar autoridade, audiência e lead sem depender do rosto de ninguém. A estratégia da empresa é a prova do produto.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- POSICIONAMENTO -->
+<section class="section pos">
+  <div class="section-inner narrow">
+    <div class="s-tag reveal">02 — Posicionamento</div>
+    <h2 class="s-title reveal">Uma mudança de território.<br>Não de identidade.</h2>
+    <p class="s-sub reveal">O infoproduto continua sendo a base de receita. O reposicionamento amplia o território sem abandonar a especialização que construiu a marca.</p>
+
+    <div class="pos-arrow reveal">
+      <div class="pos-box before">
+        <div class="pos-box-tag">De</div>
+        <p>"A Nº 1 em estruturação de times para infoprodutos"</p>
+      </div>
+      <div class="pos-arrow-icon">→</div>
+      <div class="pos-box after">
+        <div class="pos-box-tag">Para</div>
+        <p>"A empresa que define o padrão de excelência do profissional de marketing digital — em qualquer vertical, em qualquer modelo de negócio"</p>
+      </div>
+    </div>
+
+    <div class="pos-tagline reveal">
+      <div class="pos-tagline-label">Linha de Posicionamento</div>
+      <p>"A Portüs não recruta quem parece bom. Recruta quem é bom — e a diferença aparece nos números."</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ESTRATÉGIA DE MARCA -->
+<section class="section marca">
+  <div class="section-inner">
+    <div class="s-tag reveal">03 — Estratégia de Marca</div>
+    <h2 class="s-title reveal">Crescimento de marca<br>sem depender de rosto.</h2>
+    <p class="s-sub reveal">Este é o ponto onde a maioria erra. A estratégia abaixo foi construída para provar — na prática — que a Portüs cresce como marca institucional.</p>
+
+    <div class="marca-intro reveal">
+      <p><strong>O problema que a Kelly identificou:</strong> a maioria dos profissionais de marketing do digital não sabe trabalhar com marca. Quando pedem uma estratégia sem o rosto do expert, eles travam. Não entendem a pergunta. Tratam como impossível. Esta estratégia resolve exatamente isso — e usa a própria Portüs como prova viva do conceito.</p>
+    </div>
+
+    <div class="assets">
+      <div class="asset-card reveal">
+        <div class="asset-num">A</div>
+        <div class="asset-content">
+          <div class="asset-subtitle">Ativo 01 — Dado próprio de mercado</div>
+          <h3>Portüs Digital Report — Pesquisa Anual de Salários e Senioridade</h3>
+          <p>Levantamento com 1.000+ profissionais do mercado digital sobre faixas salariais reais por especialidade e nível de senioridade. Publicado como relatório público (PDF + landing page) com metodologia transparente e auditável. Serve como isca de captação B2B (empresas que precisam saber quanto pagar) e B2C (profissionais que querem se posicionar no mercado). Gera cobertura orgânica espontânea em veículos como Startups, Exame e InfoMoney. A Portüs passa a definir o benchmark — não a segui-lo.</p>
+          <div class="asset-tags">
+            <span class="asset-tag">Geração de autoridade</span>
+            <span class="asset-tag">Isca B2B + B2C</span>
+            <span class="asset-tag">PR orgânico</span>
+            <span class="asset-tag">Publicação anual</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="asset-card reveal">
+        <div class="asset-num">B</div>
+        <div class="asset-content">
+          <div class="asset-subtitle">Ativo 02 — Metodologia pública</div>
+          <h3>Portüs Index — Score público de senioridade por especialidade</h3>
+          <p>Metodologia pública e auditável que define, com critérios objetivos, o que é Júnior, Pleno, Sênior e Especialista em cada uma das 10+ especialidades do digital. Candidatos consultam gratuitamente onde se encaixam e o que precisam desenvolver. Empresas começam a referenciar o Portüs Index nos próprios processos seletivos internos. Efeito de rede: quanto mais usado, mais autoridade gera. Quanto mais autoridade, mais usado. Flywheel defensável.</p>
+          <div class="asset-tags">
+            <span class="asset-tag">Efeito de rede</span>
+            <span class="asset-tag">Defensável</span>
+            <span class="asset-tag">Referência de mercado</span>
+            <span class="asset-tag">Tráfego orgânico</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="asset-card reveal">
+        <div class="asset-num">C</div>
+        <div class="asset-content">
+          <div class="asset-subtitle">Ativo 03 — Inteligência de mercado</div>
+          <h3>Portüs Benchmark — Estudo trimestral de demanda por especialidade</h3>
+          <p>"Qual profissional o mercado digital está mais contratando esse trimestre?" Dados gerados diretamente do pipeline de contratações ativas da Portüs. Conteúdo de alta credibilidade para imprensa, newsletters corporativas e LinkedIn B2B. Reforça a percepção de que a Portüs tem acesso a informações que nenhum outro player tem — porque tem mesmo.</p>
+          <div class="asset-tags">
+            <span class="asset-tag">Publicação trimestral</span>
+            <span class="asset-tag">Dados primários</span>
+            <span class="asset-tag">Conteúdo de imprensa</span>
+            <span class="asset-tag">LinkedIn B2B</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- CANAIS -->
+<section class="section canais">
+  <div class="section-inner">
+    <div class="s-tag reveal">04 — Estratégia de Canais</div>
+    <h2 class="s-title reveal">Performance + growth.<br>Não apenas orgânico versus pago.</h2>
+    <p class="s-sub reveal">Tratar digital como canal único é o erro do profissional de marketing tradicional. Esta estratégia opera 6 canais com papéis distintos, audiências distintas e objetivos distintos.</p>
+
+    <div class="canais-grid">
+      <div class="canal-card c1 reveal">
+        <div class="canal-ico">💼</div>
+        <div>
+          <div class="canal-focus">Canal 01 · B2B Priority</div>
+          <h3>LinkedIn</h3>
+        </div>
+        <p>Página institucional com thought leadership baseado em dados. Campanhas de lead B2B segmentadas por cargo (CEO, CMO, Head de Marketing) e setor. Conteúdo técnico que prova que a Portüs entende mais do mercado do que qualquer agência de RH generalista.</p>
+        <div class="canal-kpi">Meta 90 dias: <span>200 leads B2B/mês</span></div>
+      </div>
+
+      <div class="canal-card c2 reveal reveal-d1">
+        <div class="canal-ico">🔍</div>
+        <div>
+          <div class="canal-focus">Canal 02 · Intenção de compra</div>
+          <h3>Google Search</h3>
+        </div>
+        <p>Campanhas segmentadas por termos de alta intenção: "como contratar gestor de tráfego sênior", "recrutamento mercado digital", "validar senioridade profissional". Landing pages por especialidade — não uma página genérica para tudo.</p>
+        <div class="canal-kpi">Meta 60 dias: <span>CPA B2B abaixo de R$200</span></div>
+      </div>
+
+      <div class="canal-card c3 reveal reveal-d2">
+        <div class="canal-ico">📱</div>
+        <div>
+          <div class="canal-focus">Canal 03 · B2C + B2B híbrido</div>
+          <h3>Instagram / Meta Ads</h3>
+        </div>
+        <p>Conteúdo orgânico técnico que prova expertise. Sem conteúdo motivacional. Ads de retargeting para quem interagiu com o conteúdo orgânico — convite para cadastro no banco de talentos ou briefing de contratação.</p>
+        <div class="canal-kpi">Meta: <span>Remarketing com CPL &lt; R$40</span></div>
+      </div>
+
+      <div class="canal-card c4 reveal">
+        <div class="canal-ico">🌱</div>
+        <div>
+          <div class="canal-focus">Canal 04 · Crescimento composto</div>
+          <h3>SEO</h3>
+        </div>
+        <p>Cluster de conteúdo por especialidade construído sobre os dados do Portüs Digital Report. "O que faz um copywriter especialista", "Quanto ganha um gestor de tráfego sênior", "Diferença entre Pleno e Sênior em tráfego". Ativo que cresce sem custo marginal por clique.</p>
+        <div class="canal-kpi">Meta 12 meses: <span>50.000 visitas orgânicas/mês</span></div>
+      </div>
+
+      <div class="canal-card c5 reveal reveal-d1">
+        <div class="canal-ico">🤝</div>
+        <div>
+          <div class="canal-focus">Canal 05 · Crescimento não-linear</div>
+          <h3>Parcerias e Afiliações</h3>
+        </div>
+        <p>Acesso a bases qualificadas sem custo por clique. Parceria com RD Station, Hotmart, Kiwify: diagnóstico gratuito de time para a base deles. Co-criação com comunidades de gestores, CMOs e founders. Transforma parceiros em canal de distribuição.</p>
+        <div class="canal-kpi">Meta: <span>2 parcerias ativas em 90 dias</span></div>
+      </div>
+
+      <div class="canal-card c6 reveal reveal-d2">
+        <div class="canal-ico">📧</div>
+        <div>
+          <div class="canal-focus">Canal 06 · Nutrição e conversão</div>
+          <h3>Email / CRM</h3>
+        </div>
+        <p>Fluxos separados B2B e B2C. Newsletter semanal "Portüs Insight" — dado de mercado + análise em 3 parágrafos. Empresas: sequência sobre o custo de contratar errado. Profissionais: benchmarks de carreira e como ser validado pela Portüs.</p>
+        <div class="canal-kpi">Meta: <span>500 inscritos nos primeiros 30 dias</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- VERTICAIS -->
+<section class="section verticais">
+  <div class="section-inner">
+    <div class="s-tag reveal">05 — Estratégia por Vertical</div>
+    <h2 class="s-title reveal">O mercado digital vai muito<br>além da educação.</h2>
+    <p class="s-sub reveal">Infoprodutores são a base — mas ecommerces, DNVBs, tech, agências e prestadores de serviços também contratam profissionais de marketing. E ainda não têm quem entenda seu negócio de verdade para recrutar por eles.</p>
+
+    <div class="vert-list">
+      <div class="vert-item reveal">
+        <div class="vert-n">01</div>
+        <div class="vert-content">
+          <h3>Infoprodutos — Lançamentos, perpétuos, mentorias e assinaturas</h3>
+          <p>Território consolidado da Portüs. Manter e aprofundar autoridade com conteúdo técnico. Expandir para os subnichos ainda não atendidos: creators, podcasters, newsletters pagas. Diferencial inegociável: a Portüs é a única que valida se o candidato entende o ecossistema de lançamento vs. perpétuo — e o que muda na operação de cada um.</p>
+        </div>
+        <div class="vert-badge badge-base">Base consolidada</div>
+      </div>
+      <div class="vert-item reveal">
+        <div class="vert-n">02</div>
+        <div class="vert-content">
+          <h3>Ecommerce e DNVBs — Marcas digitais diretas ao consumidor</h3>
+          <p>Alta demanda por profissionais de performance, CRM e growth com lógica de ecommerce. Dor específica: encontrar gestor de tráfego que entenda ROAS de produto físico (diferente de infoproduto). A Portüs entra com landing page e conteúdo dedicado a essa dor. Caso de uso: "O que um gestor de tráfego de ecommerce precisa saber que um de infoproduto desconhece."</p>
+        </div>
+        <div class="vert-badge badge-expand">Expansão prioritária</div>
+      </div>
+      <div class="vert-item reveal">
+        <div class="vert-n">03</div>
+        <div class="vert-content">
+          <h3>Agências e Consultorias Digitais</h3>
+          <p>Contratam em volume — ticket médio menor por vaga, porém recorrência alta e previsível. Modelo de parceria white-label: a agência terceiriza o recrutamento para a Portüs e entrega mais valor ao cliente sem escalar headcount interno. Potencial de transformar agências em canal de distribuição ativo, não apenas clientes eventuais.</p>
+        </div>
+        <div class="vert-badge badge-expand">Expansão prioritária</div>
+      </div>
+      <div class="vert-item reveal">
+        <div class="vert-n">04</div>
+        <div class="vert-content">
+          <h3>Empresas de Tecnologia e SaaS</h3>
+          <p>Startups em crescimento precisam de CMOs e heads de marketing com visão de growth: PLG (product-led growth), lifecycle marketing, activation, retention. Abordagem enterprise: outreach direto para fundadores e CTOs de startups com captação Series A+. Perfil de contratação mais sofisticado — e disposto a pagar mais pela validação correta.</p>
+        </div>
+        <div class="vert-badge badge-new">Novo território</div>
+      </div>
+      <div class="vert-item reveal">
+        <div class="vert-n">05</div>
+        <div class="vert-content">
+          <h3>Prestadores de Serviços — Clínicas, escritórios, consultorias especializadas</h3>
+          <p>Médicos, advogados, arquitetos, clínicas de estética que precisam montar time de marketing mas não sabem avaliar quem é bom. Dor idêntica ao infoprodutor: contratar errado por falta de parâmetro técnico. Ticket médio menor, porém volume alto e CAC baixo. Ponto de entrada: diagnóstico gratuito de time via Team Builder.</p>
+        </div>
+        <div class="vert-badge badge-new">Novo território</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- CONTEÚDO -->
+<section class="section conteudo">
+  <div class="section-inner">
+    <div class="s-tag reveal">06 — Estratégia de Conteúdo</div>
+    <h2 class="s-title reveal">A voz da marca.<br>Sem precisar do rosto de ninguém.</h2>
+    <p class="s-sub reveal">Cada pilar de conteúdo foi desenhado para existir de forma independente. Se qualquer membro da equipe sair amanhã, a marca continua crescendo.</p>
+
+    <div class="content-pillars">
+      <div class="pillar-card reveal">
+        <div class="pillar-ico">📊</div>
+        <div class="pillar-what">Pilar 01 · Dados de mercado</div>
+        <h3>Benchmarks e números que o mercado ainda não tem</h3>
+        <p>Salários reais por especialidade e senioridade. Demanda por cargo no trimestre. Tendências de contratação. Conteúdo que só a Portüs tem — porque só ela tem o pipeline para gerar esse dado.</p>
+        <div class="pillar-formats">
+          <span class="fmt-tag">Carrossel</span>
+          <span class="fmt-tag">Relatório PDF</span>
+          <span class="fmt-tag">Infográfico</span>
+          <span class="fmt-tag">Newsletter</span>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal reveal-d1">
+        <div class="pillar-ico">🎓</div>
+        <div class="pillar-what">Pilar 02 · Educação técnica</div>
+        <h3>O que separa um Sênior de um Pleno na prática</h3>
+        <p>Não é conteúdo motivacional. É conteúdo técnico específico por especialidade. Gestor de tráfego, copywriter, social media — cada um com critérios objetivos e verificáveis. Prova que a Portüs entende mais do que qualquer agência de RH generalista.</p>
+        <div class="pillar-formats">
+          <span class="fmt-tag">Reels curtos</span>
+          <span class="fmt-tag">Artigos LinkedIn</span>
+          <span class="fmt-tag">Posts de texto</span>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal">
+        <div class="pillar-ico">🔍</div>
+        <div class="pillar-what">Pilar 03 · Transparência do processo</div>
+        <h3>Como a Portüs valida senioridade (sem revelar tudo)</h3>
+        <p>Bastidores do processo seletivo. Erros comuns que a Portüs identifica em candidatos. Depoimentos de empresas que contrataram errado antes. Constrói confiança antes da venda, reduz ciclo de decisão.</p>
+        <div class="pillar-formats">
+          <span class="fmt-tag">Stories</span>
+          <span class="fmt-tag">Depoimentos</span>
+          <span class="fmt-tag">Bastidores</span>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal reveal-d1">
+        <div class="pillar-ico">🤖</div>
+        <div class="pillar-what">Pilar 04 · Tendências e futuro</div>
+        <h3>O profissional de marketing na era da IA</h3>
+        <p>Com a IA fazendo a parte operacional, o diferencial estará no profissional que testa múltiplos canais e interpreta dados. A Portüs lidera essa conversa antes que ela se torne commodity.</p>
+        <div class="pillar-formats">
+          <span class="fmt-tag">Análise em vídeo</span>
+          <span class="fmt-tag">Posts de posição</span>
+          <span class="fmt-tag">LinkedIn longo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="conteudo-rule reveal">
+      <div class="rule-label">Regra inegociável do conteúdo</div>
+      <p>Cada peça de conteúdo deve poder existir sem mencionar o nome de nenhuma pessoa específica da Portüs. Se o conteúdo cai junto com a saída de qualquer membro da equipe, ele não foi construído como marca — foi construído como dependência. Marca não é pessoa. Marca é sistema.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- IA -->
+<section class="section ia-section">
+  <div class="section-inner">
+    <div class="s-tag reveal">07 — Inteligência Artificial na Operação</div>
+    <h2 class="s-title reveal">IA faz a operação.<br>Estratégia é humana.</h2>
+    <p class="s-sub reveal">Com a IA assumindo tarefas operacionais, o diferencial competitivo migra inteiramente para quem toma a decisão de canal, interpreta o dado e constrói a relação estratégica.</p>
+
+    <div class="ia-grid">
+      <div class="ia-card highlight reveal">
+        <div class="ia-card-label">O que a IA já opera na Portüs</div>
+        <div class="ia-items">
+          <div class="ia-item"><div class="ia-item-dot"></div><p><strong>Triagem inicial de candidatos:</strong> IA analisa portfólio, LinkedIn e respostas de formulário — gera score preliminar antes da entrevista humana. (O Portüs Talent Screener já faz isso.)</p></div>
+          <div class="ia-item"><div class="ia-item-dot"></div><p><strong>Geração de relatório de time:</strong> IA diagnostica o negócio do cliente e entrega estrutura ideal + roadmap de contratações. (O Portüs Team Builder já faz isso.)</p></div>
+          <div class="ia-item"><div class="ia-item-dot"></div><p><strong>Produção de conteúdo em escala:</strong> briefing estratégico feito por humano, execução operacional por IA — velocidade sem perder qualidade estratégica.</p></div>
+          <div class="ia-item"><div class="ia-item-dot"></div><p><strong>Personalização de outreach B2B:</strong> mensagens de prospecção personalizadas por vertical, cargo e momento do prospect — sem esforço manual por lead.</p></div>
+        </div>
+      </div>
+      <div class="ia-card reveal reveal-d1">
+        <div class="ia-card-label">O que a IA não substitui — e onde o Head de Marketing agrega valor</div>
+        <div class="ia-items">
+          <div class="ia-item"><div class="ia-item-dot"></div><p>Decisão de canal: qual investir, qual pausar, qual testar. IA executa. Humano decide a aposta.</p></div>
+          <div class="ia-item"><div class="ia-item-dot"></div><p>Interpretação de dado com contexto de negócio: o número é fácil. A conclusão certa é difícil.</p></div>
+          <div class="ia-item"><div class="ia-item-dot"></div><p>Relação com parceiro estratégico: confiança, negociação, construção de canal.</p></div>
+          <div class="ia-item"><div class="ia-item-dot"></div><p>Posicionamento de marca: o que a Portüs representa, para quem, e por quê importa agora.</p></div>
+          <div class="ia-item"><div class="ia-item-dot"></div><p>Gestão de time: contratar, desenvolver, cobrar e proteger as pessoas certas.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ROADMAP -->
+<section class="section roadmap-section">
+  <div class="section-inner">
+    <div class="s-tag reveal">08 — Roadmap de Implementação</div>
+    <h2 class="s-title reveal">Três fases. Metas claras.<br>Sem achismo.</h2>
+    <p class="s-sub reveal">Cada fase tem entregáveis concretos e KPIs verificáveis. Não há meta vaga. Não há "vamos ver como fica". Há número, prazo e responsável.</p>
+
+    <div class="phases">
+      <div class="phase phase-1 reveal">
+        <div class="phase-header">
+          <div class="phase-tag">Fase 01</div>
+          <h3>Fundação</h3>
+          <div class="phase-period">0 a 30 dias</div>
+        </div>
+        <div class="phase-divider"></div>
+        <div class="phase-body">
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Auditoria completa dos canais atuais: o que está gerando e o que não está</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Briefing de personas B2B por vertical (infoproduto, ecommerce, tech, agência)</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Lançamento da newsletter "Portüs Insight" — dado de mercado + análise semanal</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Início da coleta de dados para o Portüs Digital Report</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Página institucional LinkedIn otimizada e calendário de conteúdo ativo</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Primeiras campanhas de LinkedIn Ads B2B no ar para teste</p></div>
+        </div>
+        <div class="phase-footer">
+          <div class="kpi-label">KPI de Validação</div>
+          <div class="kpi-value">500 inscritos na newsletter · 30 leads B2B via LinkedIn</div>
+        </div>
+      </div>
+
+      <div class="phase phase-2 reveal reveal-d1">
+        <div class="phase-header">
+          <div class="phase-tag">Fase 02</div>
+          <h3>Tração</h3>
+          <div class="phase-period">30 a 90 dias</div>
+        </div>
+        <div class="phase-divider"></div>
+        <div class="phase-body">
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Landing pages por vertical no ar (infoproduto, ecommerce, tech, agência)</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Google Ads ativo com campanhas segmentadas por especialidade e intenção</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>LinkedIn Ads B2B com geração de lead qualificado em escala</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Publicação do Portüs Digital Report com PR ativo para imprensa</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Portüs Index publicado e disponível para consulta pública</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Primeira parceria de canal fechada (ferramenta ou comunidade)</p></div>
+        </div>
+        <div class="phase-footer">
+          <div class="kpi-label">KPI de Validação</div>
+          <div class="kpi-value">200 leads B2B/mês · CPA abaixo de R$200 · 3 verticais ativas</div>
+        </div>
+      </div>
+
+      <div class="phase phase-3 reveal reveal-d2">
+        <div class="phase-header">
+          <div class="phase-tag">Fase 03</div>
+          <h3>Escala</h3>
+          <div class="phase-period">90 a 180 dias</div>
+        </div>
+        <div class="phase-divider"></div>
+        <div class="phase-body">
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Portüs Index sendo citado por terceiros em processos seletivos e conteúdos externos</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>2 parcerias de canal ativas gerando lead recorrente sem custo por clique</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>SEO gerando primeiros 10.000 acessos orgânicos/mês via cluster de conteúdo</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>1 matéria em veículo de mídia nacional usando dados do Portüs Digital Report</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Pipeline B2B com 3+ verticais gerando contratações fechadas</p></div>
+          <div class="phase-item"><div class="phase-item-dot"></div><p>Portüs Benchmark trimestral sendo distribuído para base de 2.000+ empresas</p></div>
+        </div>
+        <div class="phase-footer">
+          <div class="kpi-label">KPI de Validação</div>
+          <div class="kpi-value">500 leads B2B/mês · 3 verticais com fechamentos · Menção em mídia nacional</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- POR QUE DIFERENTE -->
+<section class="section porq">
+  <div class="section-inner">
+    <div class="s-tag reveal">09 — Por que esta estratégia é diferente</div>
+    <h2 class="s-title reveal">O que a maioria entregou.<br>O que esta estratégia responde.</h2>
+
+    <div class="porq-intro reveal">
+      <p>A maioria dos profissionais entrevistados provavelmente entregou uma das três respostas abaixo: <em style="color:var(--muted)">"Vamos fazer lançamento com o seu perfil pessoal." / "Vamos crescer o Instagram com conteúdo de valor." / "Mastermind seria uma boa ideia."</em></p>
+      <p>Esta estratégia foi construída para responder o que ninguém respondeu ainda — porque exige um profissional que entenda de marca, de múltiplos canais, de performance, de growth e de gestão ao mesmo tempo. O CMO que a Portüs precisa.</p>
+    </div>
+
+    <div class="diff-list">
+      <div class="diff-item reveal">
+        <div class="diff-check">✦</div>
+        <p>Marketing de marca <span>— não de expert. A Portüs cresce sem depender do rosto de ninguém.</span></p>
+      </div>
+      <div class="diff-item reveal">
+        <div class="diff-check">✦</div>
+        <p>Multi-canal com papéis distintos <span>— não só orgânico versus pago. Seis canais, seis objetivos, uma estratégia coesa.</span></p>
+      </div>
+      <div class="diff-item reveal">
+        <div class="diff-check">✦</div>
+        <p>Cinco verticais endereçadas <span>— não só infoproduto. Ecommerce, tech, agências e serviços também contratam.</span></p>
+      </div>
+      <div class="diff-item reveal">
+        <div class="diff-check">✦</div>
+        <p>Performance + growth integrados <span>— não separados. Cada canal tem meta, CPA e KPI verificável.</span></p>
+      </div>
+      <div class="diff-item reveal">
+        <div class="diff-check">✦</div>
+        <p>IA integrada à operação <span>— não como buzzword. Já operando em dois produtos lançados.</span></p>
+      </div>
+      <div class="diff-item reveal">
+        <div class="diff-check">✦</div>
+        <p>Dados próprios como ativo de marca <span>— Portüs Digital Report, Portüs Index e Portüs Benchmark. Diferencial defensável que nenhum concorrente pode copiar rapidamente.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="closing-inner reveal">
+    <h2>A Portüs não precisa de mais<br>um gestor de tráfego.<br>Precisa de um <em>CMO</em>.</h2>
+    <p>Generalista ultra-sênior. Planejamento estratégico integrado às metas do negócio. Domínio de múltiplos canais, growth e gestão. Profissional que sabe trabalhar com marca — não só com expert. Esta estratégia foi elaborada por alguém que já entende o que isso significa.</p>
+    <div class="closing-author">
+      <div class="closing-avatar">WF</div>
+      <div>
+        <div class="closing-name">Walter Ferreira</div>
+        <div class="closing-role">Estrategista de Marketing com IA · @_walterferreira_</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">port<em>ü</em>s digital</div>
+  <p>Documento estratégico confidencial — Abril 2026</p>
+</footer>
+
+<script>
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add("up"); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+  document.querySelectorAll(".reveal").forEach(function(el) { observer.observe(el); });
+</script>
+
+</body>
+</html>
