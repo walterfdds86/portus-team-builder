@@ -415,6 +415,27 @@
     .footer-logo em { color: var(--g); font-style: normal; }
     footer p { font-size: 12px; color: rgba(240,244,242,.2); }
 
+    /* ─── EDIT BAR ─── */
+    #edit-bar {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      display: flex; gap: 8px; align-items: center;
+      background: rgba(8,14,11,.96); border: 1px solid rgba(0,220,164,.35);
+      border-radius: 14px; padding: 10px 16px; backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.5);
+    }
+    .eb-btn {
+      background: rgba(0,220,164,.1); color: #00dca4;
+      border: 1px solid rgba(0,220,164,.3); border-radius: 8px;
+      padding: 7px 14px; font-family: var(--font); font-size: 13px;
+      font-weight: 700; cursor: pointer; transition: background .2s, border-color .2s;
+    }
+    .eb-btn:hover { background: rgba(0,220,164,.22); border-color: rgba(0,220,164,.6); }
+    .eb-btn.danger { color: rgba(240,244,242,.5); border-color: rgba(255,255,255,.1); background: transparent; }
+    .eb-btn.danger:hover { color: var(--red); border-color: rgba(239,68,68,.4); background: rgba(239,68,68,.08); }
+    #eb-msg { font-size: 12px; font-weight: 600; color: #00dca4; display: none; }
+    [contenteditable="true"] { outline: 1px dashed rgba(0,220,164,.35) !important; border-radius: 4px; }
+    [contenteditable="true"]:focus { outline: 1px solid rgba(0,220,164,.7) !important; }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 860px) {
       .diag-grid { grid-template-columns: 1fr; }
@@ -974,12 +995,95 @@
 </footer>
 
 <script>
+  // ── Scroll reveal ──
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting) { e.target.classList.add("up"); observer.unobserve(e.target); }
     });
   }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
   document.querySelectorAll(".reveal").forEach(function(el) { observer.observe(el); });
+
+  // ── Edit mode ──
+  (function() {
+    var KEY = 'estrategia-portus-v1';
+    var editing = false;
+    var EDITABLE = 'h1, h2, h3, h4, p, li, em';
+
+    // Build the floating bar
+    var bar = document.createElement('div');
+    bar.id = 'edit-bar';
+    bar.innerHTML =
+      '<button class="eb-btn" id="eb-toggle">✎ Editar</button>' +
+      '<button class="eb-btn" id="eb-save" style="display:none">💾 Salvar</button>' +
+      '<button class="eb-btn" id="eb-export" style="display:none">⬇ Baixar HTML</button>' +
+      '<button class="eb-btn danger" id="eb-reset" style="display:none">↩ Resetar</button>' +
+      '<span id="eb-msg">Salvo!</span>';
+    document.body.appendChild(bar);
+
+    function els() { return document.querySelectorAll(EDITABLE); }
+
+    function enter() {
+      editing = true;
+      els().forEach(function(el) { el.setAttribute('contenteditable', 'true'); });
+      document.getElementById('eb-toggle').textContent = '✕ Sair';
+      ['eb-save','eb-export','eb-reset'].forEach(function(id) {
+        document.getElementById(id).style.display = '';
+      });
+    }
+
+    function exit() {
+      editing = false;
+      els().forEach(function(el) { el.removeAttribute('contenteditable'); });
+      document.getElementById('eb-toggle').textContent = '✎ Editar';
+      ['eb-save','eb-export','eb-reset'].forEach(function(id) {
+        document.getElementById(id).style.display = 'none';
+      });
+    }
+
+    function save() {
+      var data = {};
+      els().forEach(function(el, i) { data[i] = el.innerHTML; });
+      localStorage.setItem(KEY, JSON.stringify(data));
+      var msg = document.getElementById('eb-msg');
+      msg.style.display = 'inline';
+      setTimeout(function() { msg.style.display = 'none'; }, 2500);
+    }
+
+    function restore() {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      var data = JSON.parse(raw);
+      els().forEach(function(el, i) { if (data[i] != null) el.innerHTML = data[i]; });
+    }
+
+    function exportHTML() {
+      bar.style.display = 'none';
+      var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      bar.style.display = '';
+      var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'estrategia-portus.html';
+      a.click();
+      setTimeout(function() { URL.revokeObjectURL(a.href); }, 1000);
+    }
+
+    function reset() {
+      if (!confirm('Resetar todas as edições? Isso apagará as mudanças salvas.')) return;
+      localStorage.removeItem(KEY);
+      location.reload();
+    }
+
+    document.getElementById('eb-toggle').addEventListener('click', function() {
+      editing ? exit() : enter();
+    });
+    document.getElementById('eb-save').addEventListener('click', save);
+    document.getElementById('eb-export').addEventListener('click', exportHTML);
+    document.getElementById('eb-reset').addEventListener('click', reset);
+
+    // Restore saved edits on load
+    restore();
+  })();
 </script>
 
 </body>
