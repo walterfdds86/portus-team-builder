@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
     :root {
       --g:      #00dca4;
       --g-d:    #08c393;
@@ -32,7 +31,8 @@
       --r:      14px;
       --r2:     20px;
     }
-    body { font-family: var(--font); background: var(--bg); color: var(--txt); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body { font-family: var(--font); background: var(--bg); color: var(--txt); -webkit-font-smoothing: antialiased; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+    html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
     a { text-decoration: none; color: inherit; }
 
     /* ─── SCROLL REVEAL ─── */
@@ -415,8 +415,11 @@
     .footer-logo em { color: var(--g); font-style: normal; }
     footer p { font-size: 12px; color: rgba(240,244,242,.2); }
 
-    /* ─── RESPONSIVE ─── */
+    /* ─── RESPONSIVE · TABLET ─── */
     @media (max-width: 860px) {
+      .section { padding: 64px 24px; }
+      .hero { padding: 80px 24px 64px; }
+      .closing { padding: 72px 24px; }
       .diag-grid { grid-template-columns: 1fr; }
       .canais-grid { grid-template-columns: 1fr 1fr; }
       .phases { grid-template-columns: 1fr; }
@@ -425,15 +428,61 @@
       .pos-arrow { grid-template-columns: 1fr; }
       .pos-arrow-icon { transform: rotate(90deg); padding: 8px 0; }
     }
+
+    /* ─── RESPONSIVE · MOBILE ─── */
     @media (max-width: 580px) {
-      nav { padding: 0 20px; }
+      nav { padding: 0 16px; height: 56px; }
       .nav-meta { display: none; }
-      .canais-grid { grid-template-columns: 1fr; }
-      .vert-item { grid-template-columns: 48px 1fr; }
-      .vert-badge { display: none; }
-      .asset-card { grid-template-columns: 1fr; }
+      .nav-tag { font-size: 10px; padding: 5px 10px; }
+
+      .hero { padding: 80px 16px 56px; }
+      .hero h1 { letter-spacing: -1px; }
+      .hero-div { display: none; }
+      .hero-meta { gap: 20px; }
+
+      .section { padding: 48px 16px; }
+      .s-title { letter-spacing: -0.5px; }
+
+      .pos-box { padding: 20px; }
+      .pos-tagline { padding: 20px; }
+      .pos-tagline p { font-size: 15px; }
+
+      .marca-intro { padding: 20px; }
+      .asset-card { grid-template-columns: 1fr; padding: 24px; }
       .asset-num { width: 48px; height: 48px; font-size: 18px; }
-      footer { flex-direction: column; gap: 8px; text-align: center; }
+
+      .canais-grid { grid-template-columns: 1fr; }
+      .canal-card { padding: 20px; }
+
+      .vert-item { grid-template-columns: 40px 1fr; gap: 12px; padding: 20px 16px; }
+      .vert-n { width: 40px; height: 40px; font-size: 13px; border-radius: 10px; }
+      .vert-badge { display: none; }
+
+      .pillar-card { padding: 20px; }
+      .tese-box { padding: 20px; }
+      .conteudo-rule { padding: 20px; }
+
+      .ia-card { padding: 20px; }
+
+      .phase-header { padding: 20px 20px 16px; }
+      .phase-body { padding: 20px; gap: 12px; }
+      .phase-footer { padding: 16px 20px 20px; }
+
+      .diff-item { padding: 16px; gap: 12px; align-items: flex-start; }
+      .diff-check { width: 28px; height: 28px; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+      .diff-item p { font-size: 14px; }
+
+      .closing { padding: 56px 16px; }
+      .closing-author { flex-direction: column; border-radius: 20px; padding: 20px; text-align: center; }
+
+      footer { flex-direction: column; gap: 8px; text-align: center; padding: 16px 20px; }
+    }
+
+    /* ─── RESPONSIVE · TELA PEQUENA ─── */
+    @media (max-width: 380px) {
+      .hero-meta { display: none; }
+      .hero h1 { letter-spacing: -0.5px; }
+      .s-title { font-size: 24px; }
     }
   </style>
 </head>
